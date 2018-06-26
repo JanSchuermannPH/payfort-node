@@ -1,6 +1,3 @@
-// import dependencies
-var request = require('request');
-
 // import files
 var resources = require("./resources");
 var utility = require("./utility");
@@ -37,21 +34,21 @@ var create_signature = function(passphrase, data){
 };
 
 // function to call payfort and create payment.
-var send_request = function(client, data, callback){
+var send_request = function(client, data){
+    var form = '<form id="payfortSubmission" style="display: none;" action="'+client.url+'" method="post">';
     data.access_code = client.access_code;
     data.merchant_identifier = client.merchant_identifier;
     if(!data.signature){
         data.signature = create_signature(client.passphrase, data);
+        localStorage.setItem('paymentToken', data.signature);
     }
-    request.post({
-        url : client.url,
-        form : data
-    }, function(err, httpResponse, body){ 
-        if (err){
-            callback(err, null);
-        }
-        callback(null, httpResponse);
-    });
+    for(var i in data){
+        form += '<input type="hidden" name="'+i+'" value="'+data[i]+'" />';
+    }
+    form += '</form>';
+    
+    $('body').append(form);
+    $('#payfortSubmission').submit();
 };
 
 exports.create_client = create_client;

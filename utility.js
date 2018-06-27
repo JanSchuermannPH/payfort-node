@@ -1,4 +1,4 @@
-var crypto = require('crypto');
+var crypto = require('crypto-browserify');
 
 var createHash = function(string){
     var hash = crypto.createHash('sha256').update(string, 'utf8').digest('hex');

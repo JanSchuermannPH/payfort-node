@@ -1,6 +1,6 @@
 {
-  "name": "sd-payfort-node",
-  "version": "2.0.1",
+  "name": "@skylinedynamics/sd-payfort-node",
+  "version": "1.0.1",
   "description": "Unofficial payfort node client",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
